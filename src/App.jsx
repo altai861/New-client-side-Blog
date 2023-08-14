@@ -7,7 +7,8 @@ import Admin from './Components/Admin'
 import Profile from './Components/Profile'
 import RequireAuth from './Components/RequireAuth'
 import Missing from './Components/Missing'
-
+import Unauthorized from './Components/Unauthorized'
+import PersistLogin from './Components/PersistLogin'
 import { Routes, Route } from "react-router-dom"
 
 function App() {
@@ -19,14 +20,19 @@ function App() {
         {/* Public Routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="/" element={<Home />} />
+        
+        <Route path="unauthorized" element={<Unauthorized />} />
 
-        {/* Auth Required Routes */}
-        <Route element={<RequireAuth allowedRoles={[1984]}/>}>
-          <Route path="admin" element={<Admin />} />
-        </Route>
-        <Route element={<RequireAuth allowedRoles={[2001, 1984]}/>}>
-          <Route path="profile" element={<Profile />} />
+
+        <Route element={<PersistLogin />}>
+          <Route path="/" element={<Home />} />
+          {/* Auth Required Routes */}
+          <Route element={<RequireAuth allowedRoles={[1984]}/>}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[2001, 1984]}/>}>
+            <Route path="profile" element={<Profile />} />
+          </Route>
         </Route>
         
 
